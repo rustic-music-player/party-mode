@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.1</TargetFramework>
+        <RootNamespace>Rustic.PartyMode.Proxy.Domain</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\rustic.party-mode.proxy.domain.contracts\rustic.party-mode.proxy.domain.contracts.csproj" />
+    </ItemGroup>
+
+</Project>
