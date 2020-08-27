@@ -3,9 +3,9 @@ using MassTransit;
 
 namespace Rustic.PartyMode.Proxy.Messaging.Contracts.Commands
 {
-    public interface ICommandHandler<TCommand> : ISubscriber<TCommand> where TCommand : class, ICommand
+    public abstract class ICommandHandler<TCommand> : ISubscriber<TCommand> where TCommand : class, ICommand
     {
-        public Task Handle(TCommand query);
+        public abstract Task Handle(TCommand query);
 
 
         Task IConsumer<TCommand>.Consume(ConsumeContext<TCommand> context)

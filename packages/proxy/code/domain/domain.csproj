@@ -6,7 +6,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\rustic.party-mode.proxy.domain.contracts\rustic.party-mode.proxy.domain.contracts.csproj" />
     </ItemGroup>
 
 </Project>

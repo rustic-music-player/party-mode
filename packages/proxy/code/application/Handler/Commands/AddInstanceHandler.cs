@@ -14,7 +14,7 @@ namespace Rustic.PartyMode.Proxy.Application.Handler.Commands
             this.creator = creator;
         }
         
-        public Task Handle(AddInstance query)
+        public override Task Handle(AddInstance query)
         {
             return creator.Add(query.Rustic);
         }

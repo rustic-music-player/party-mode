@@ -15,10 +15,6 @@ namespace Rustic.PartyMode.Proxy.Messaging
             services.AddMediator(cfg =>
             {
                 Type[] subscribers = serviceProvider.GetServices<ISubscriber>().Select(service => service.GetType()).ToArray();
-                foreach (Type subscriber in subscribers)
-                {
-                    Console.WriteLine($"{subscriber}");
-                }
                 cfg.AddConsumers(subscribers);
             });
         }

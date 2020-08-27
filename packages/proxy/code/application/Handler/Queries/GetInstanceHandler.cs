@@ -17,7 +17,7 @@ namespace Rustic.PartyMode.Proxy.Application.Handler.Queries
             this.rusticLoader = rusticLoader;
         }
 
-        public async Task<RusticApp> Handle(GetInstance query)
+        public override async Task<RusticApp> Handle(GetInstance query)
         {
             return await rusticLoader.Load(query.Id);
         }

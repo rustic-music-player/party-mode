@@ -6,7 +6,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Serilog.Sinks.Console" Version="4.0.0-dev-00839" />
     </ItemGroup>
 
     <ItemGroup>
@@ -14,7 +13,6 @@
       <ProjectReference Include="..\application\application.csproj" />
       <ProjectReference Include="..\domain\domain.csproj" />
       <ProjectReference Include="..\infrastructure\infrastructure.csproj" />
-      <ProjectReference Include="..\logging\logging.csproj" />
       <ProjectReference Include="..\messaging.contracts\messaging.contracts.csproj" />
       <ProjectReference Include="..\messaging\messaging.csproj" />
     </ItemGroup>
