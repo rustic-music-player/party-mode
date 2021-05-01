@@ -77,7 +77,7 @@ pipeline {
                         stage('Build') {
                             steps {
                                 dir('packages/extension') {
-                                    sh 'cargo build --release --message-format json > cargo-build.json'
+                                    sh 'cargo build --release'
                                 }
                                 fileOperations([
                                     folderCreateOperation('osx-x86_64'),
