@@ -62,11 +62,12 @@ pipeline {
                             }
                         }
                     }
-                    post {
-                        always {
-                            cleanWs()
-                        }
-                    }
+                    // this fails for some reason
+//                    post {
+//                        always {
+//                            cleanWs()
+//                        }
+//                    }
                 }
 
                 stage('macOS x64') {
