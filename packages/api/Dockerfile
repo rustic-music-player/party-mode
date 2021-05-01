@@ -6,6 +6,7 @@ COPY ["package.json", "yarn.lock", "/build/"]
 
 RUN yarn
 
+COPY ["nest-cli.json", "tsconfig.json", "tsconfig.build.json", "/build/"]
 COPY ["src/", "/build/src/"]
 
 RUN yarn build

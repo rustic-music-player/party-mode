@@ -6,6 +6,7 @@ COPY ["package.json", "yarn.lock", "/build/"]
 
 RUN yarn
 
+COPY ["babel.config.json", "tsconfig.json", "/build/"]
 COPY ["src/", "/build/src/"]
 
 RUN yarn build
