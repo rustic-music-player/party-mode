@@ -98,12 +98,10 @@ pipeline {
                     agent {
                         label "docker"
                     }
-                    stages {
-                        stage('Build') {
-                            steps {
-                                script {
-                                    docker.build("docker.pkg.github.com/rustic-music-player/party-mode/api:latest", './packages/api').push()
-                                }
+                    steps {
+                        script {
+                            docker.withRegistry('https://docker.pkg.github.com', 'github') {
+                                docker.build("docker.pkg.github.com/rustic-music-player/party-mode/api:latest", './packages/api').push()
                             }
                         }
                     }
@@ -113,12 +111,10 @@ pipeline {
                     agent {
                         label "docker"
                     }
-                    stages {
-                        stage('Build') {
-                            steps {
-                                script {
-                                    docker.build("docker.pkg.github.com/rustic-music-player/party-mode/client:latest", './packages/client').push()
-                                }
+                    steps {
+                        script {
+                            docker.withRegistry('https://docker.pkg.github.com', 'github') {
+                                docker.build("docker.pkg.github.com/rustic-music-player/party-mode/client:latest", './packages/client').push()
                             }
                         }
                     }
