@@ -1,0 +1,32 @@
+.now-playing {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 4px;
+  justify-items: center;
+  padding: 16px;
+}
+
+.now-playing__cover-art {
+  max-width: 100%;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(black, 0.4);
+  margin-bottom: 16px;
+}
+
+.now-playing__title {
+  text-align: center;
+  font-size: 1em;
+  color: var(--title);
+}
+
+.now-playing__artist {
+  text-align: center;
+  font-size: 0.9em;
+  color: var(--subtitle);
+}
+
+.now-playing__album {
+  text-align: center;
+  font-size: 0.8em;
+  color: var(--subtitle);
+}

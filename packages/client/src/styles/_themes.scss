@@ -1,0 +1,33 @@
+$light: (
+  background: #fdfdfd,
+  hover-background: rgba(black, 0.1),
+  text: rgba(black, 0.9),
+  icon-color: rgba(black, 0.54),
+  title: rgba(black, 0.9),
+  subtitle: rgba(black, 0.78),
+  search-background: rgba(black, 0.1),
+  search-inactive-color: rgba(black, 0.2),
+  search-active-color: rgba(black, 0.5),
+  votes-background: rgba(black, 0.1),
+  qr-code-disabled-background: rgba(black, 0.2),
+);
+
+$dark: (
+  background: #222,
+  hover-background: rgba(white, 0.1),
+  text: rgba(white, 0.8),
+  icon-color: rgba(white, 0.9),
+  title: rgba(white, 0.8),
+  subtitle: rgba(white, 0.54),
+  search-background: rgba(white, 0.2),
+  search-inactive-color: rgba(white, 0.3),
+  search-active-color: rgba(white, 0.8),
+  votes-background: rgba(white, 0.3),
+  qr-code-disabled-background: rgba(white, 0.3),
+);
+
+@mixin theme($palette) {
+  @each $key, $value in $palette {
+    --#{$key}: #{$value}
+  }
+}

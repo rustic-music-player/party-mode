@@ -1,0 +1,27 @@
+.landing-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.landing-page__title {
+  color: var(--title);
+}
+
+.landing-page__subtitle {
+  color: var(--subtitle);
+}
+
+.landing-page__join-form {
+
+}
+
+.landing-page__input {
+
+}
+
+.landing-page__join-btn {
+  border-radius: 2px;
+  border: none;
+  background: var(--join-btn-background);
+}

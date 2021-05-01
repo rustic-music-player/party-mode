@@ -1,0 +1,50 @@
+$thumbnailSize: 56px;
+$padding: 4px;
+$iconSize: 20px;
+
+.track-item {
+  height: $thumbnailSize + (2 * $padding);
+  display: grid;
+  padding: $padding;
+  grid-template-areas: 'cover title upvotes' 'cover artist upvotes';
+  grid-column-gap: 8px;
+  grid-template-rows: repeat(2, 1fr);
+  grid-template-columns: $thumbnailSize 1fr 64px;
+  align-items: center;
+  align-content: center;
+  position: relative;
+}
+
+.track-item__cover {
+  grid-area: cover;
+  width: $thumbnailSize;
+  height: $thumbnailSize;
+  border-radius: 2px;
+}
+
+.track-item__title {
+  grid-area: title;
+  font-size: 0.8em;
+  color: var(--title);
+}
+
+.track-item__artist {
+  grid-area: artist;
+  font-size: 0.7em;
+  color: var(--subtitle);
+}
+
+.track-item__like {
+  grid-area: upvotes;
+}
+
+.track-item__icon {
+  position: absolute;
+  background: var(--background);
+  border-radius: 100%;
+  width: $iconSize;
+  height: $iconSize;
+  padding: 2px;
+  left: #{$thumbnailSize - $iconSize / 2};
+  top: #{$thumbnailSize - $iconSize / 2};
+}

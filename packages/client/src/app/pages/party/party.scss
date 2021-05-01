@@ -1,0 +1,38 @@
+@import "../../../styles/breakpoints";
+
+.party {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-areas: 'search' 'now-playing' 'queue';
+  grid-gap: 8px;
+  padding: 16px;
+}
+
+.party__now-playing {
+  grid-area: now-playing;
+  align-self: start;
+}
+
+.party__queue {
+  grid-area: queue;
+}
+
+.party__search {
+  grid-area: search;
+}
+
+@include breakpoint($tablet) {
+  .party {
+    grid-gap: 16px;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: 'search search' 'now-playing queue';
+  }
+}
+
+@include breakpoint($desktop) {
+  .party {
+    grid-gap: 16px;
+    grid-template-columns: 1fr 1fr 2fr;
+    grid-template-areas: 'now-playing queue search';
+  }
+}

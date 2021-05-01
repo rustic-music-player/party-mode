@@ -1,0 +1,19 @@
+.qr-code-scan {
+  max-width: 500px;
+  max-height: 500px;
+  width: 100%;
+  height: 100%;
+  border-radius: 2px;
+}
+
+.qr-code-scan--inactive {
+  padding: 16px;
+  background: var(--qr-code-disabled-background);
+  border: none;
+  cursor: pointer;
+}
+
+.qr-code-scan__reader {
+  width: 100%;
+  height: 100%;
+}

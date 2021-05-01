@@ -1,0 +1,16 @@
+version: '3'
+services:
+  api:
+    build: packages/api
+    image: docker.pkg.github.com/rustic-music-player/party-mode/api:latest
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.gateway.rule=Host(`${DOMAIN}`) && Path(`/api`)"
+  client:
+    build: packages/client
+    image: docker.pkg.github.com/rustic-music-player/party-mode/client:latest
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.gateway.rule=Host(`${DOMAIN}`)"
+networks:
+  remote_gateway:
