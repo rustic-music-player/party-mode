@@ -1512,7 +1512,7 @@ dependencies = [
 [[package]]
 name = "rustic-core"
 version = "0.1.0"
-source = "git+https://github.com/rustic-music-player/rustic.git#b68524ee18a1802b05a5c326aafe8bb964fa81db"
+source = "git+https://github.com/rustic-music-player/rustic.git#274164e5adf26c3f7f9cdc105a7f5046757ad061"
 dependencies = [
  "async-trait",
  "bincode",
@@ -1538,7 +1538,7 @@ dependencies = [
 [[package]]
 name = "rustic-extension-api"
 version = "0.1.0"
-source = "git+https://github.com/rustic-music-player/rustic.git#b68524ee18a1802b05a5c326aafe8bb964fa81db"
+source = "git+https://github.com/rustic-music-player/rustic.git#274164e5adf26c3f7f9cdc105a7f5046757ad061"
 dependencies = [
  "async-trait",
  "failure",
@@ -1560,6 +1560,7 @@ dependencies = [
  "futures 0.3.14",
  "futures-util",
  "log",
+ "rand 0.8.3",
  "rustic-core",
  "rustic-extension-api",
  "serde",
@@ -1571,7 +1572,7 @@ dependencies = [
 [[package]]
 name = "rustic-queue"
 version = "0.1.0"
-source = "git+https://github.com/rustic-music-player/rustic.git#b68524ee18a1802b05a5c326aafe8bb964fa81db"
+source = "git+https://github.com/rustic-music-player/rustic.git#274164e5adf26c3f7f9cdc105a7f5046757ad061"
 dependencies = [
  "flume",
  "futures 0.3.14",
