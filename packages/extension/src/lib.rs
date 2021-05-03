@@ -33,7 +33,7 @@ impl ExtensionLibrary for PartyModeExtension {
         let tokio_runtime = tokio::runtime::Runtime::new().expect("could not create tokio runtime for party mode extension");
 
         PartyModeExtension {
-            server: config.get("server").and_then(|value| value.string()).unwrap_or_else(|| "wss://party.rustic.cloud".to_string()),
+            server: config.get("server").and_then(|value| value.string()).unwrap_or_else(|| "https://party.rustic.cloud".to_string()),
             runtime: Default::default(),
             background_bus: Default::default(),
             background_task: Default::default(),
@@ -95,7 +95,7 @@ impl ExtensionApi for PartyModeExtension {
 
         Ok(ExtensionControls {
             actions: vec![(REFRESH_SERVER_CODE, "Refresh Server Code").into()],
-            infos: join_url.into_iter().map(|url| ExtensionInfo::Link(url)).collect(),
+            infos: join_url.into_iter().map(ExtensionInfo::Link).collect(),
         })
     }
 

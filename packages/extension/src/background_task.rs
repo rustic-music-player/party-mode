@@ -22,8 +22,9 @@ pub struct PartyModeBackgroundRunner {
 impl PartyModeBackgroundRunner {
     pub async fn new(runtime: ExtensionRuntime, events: mpsc::Receiver<PlayerEvent>, server_url: String, server_code: String) -> Result<Self, failure::Error> {
         println!("creating background task...");
-        println!("connecting to websocket...");
+        let server_url = server_url.replace("https:", "wss:").replace("http:", "ws:");
         let url = format!("{}/api/server?serverId={}", server_url, server_code);
+        println!("connecting to websocket...");
         let (socket, _) = connect_async(url).await?;
 
         Ok(Self {
