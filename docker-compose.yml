@@ -12,5 +12,20 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.gateway.rule=Host(`${DOMAIN}`)"
+  file-storage:
+    image: minio/minio
+    volumes:
+    - storage:/storage
+    environment:
+      MINIO_ACCESS_KEY: dev_root_key
+      MINIO_SECRET_KEY: secret_access_key
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.gateway.rule=Host(`${DOMAIN}`)"
+    command: server /storage
+    ports:
+    - 9000:9000
 networks:
   remote_gateway:
+volumes:
+  storage:

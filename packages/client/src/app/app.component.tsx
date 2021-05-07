@@ -4,8 +4,9 @@ import { useService } from '../commons/use-service.hook';
 import { PlayerState } from './state/player.state';
 import { PartyState } from './state/party.state';
 import LandingPage from './pages/landing/landing';
+import { observer } from 'mobx-react-lite';
 
-const App = () => {
+const App = observer(() => {
   const playerState = useService(PlayerState);
   const partyState = useService(PartyState);
 
@@ -13,6 +14,6 @@ const App = () => {
     return <LandingPage joinParty={code => partyState.joinParty(code)} />
   }
   return <Party playerState={playerState}/>;
-};
+});
 
 export default App;

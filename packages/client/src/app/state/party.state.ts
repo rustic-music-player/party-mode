@@ -1,4 +1,4 @@
-import { action, observable } from 'mobx';
+import { action, makeObservable, observable } from 'mobx';
 import { PartyApi } from '../../api/party';
 import { Singleton } from '../../commons/ioc-container';
 
@@ -8,6 +8,7 @@ export class PartyState {
   partyCode?: string;
 
   constructor(private partyApi: PartyApi) {
+    makeObservable(this);
     this.partyApi.observeJoinedParty(event => this.setCode(event.code));
   }
 

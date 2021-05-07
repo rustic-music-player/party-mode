@@ -5,7 +5,7 @@ export type SocketMessage = { type: string } & Record<string, unknown>;
 
 @Singleton()
 export class SocketApi {
-  private socket: WebSocket = new ReconnectingWebSocket(`ws://${location.host}/api/client`)
+  private socket: WebSocket = new ReconnectingWebSocket(`ws://${location.host}/api/client?clientId=1`)
 
   constructor() {
     this.socket.addEventListener('message', event => console.log('msg', event));

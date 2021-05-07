@@ -10,7 +10,7 @@ export interface QueueProps {
 }
 
 const Queue = ({ className, tracks, onUpvote }: QueueProps) => <div className={classnames("queue", className)}>
-  {tracks.map(track => <TrackItem track={track} onUpvote={() => onUpvote(track)}/>)}
+  {(tracks ?? []).map(track => <TrackItem track={track} onUpvote={() => onUpvote(track)}/>)}
 </div>
 
 

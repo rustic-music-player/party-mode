@@ -18,6 +18,10 @@ import { parse } from 'url';
 import { ParsedUrlQuery } from 'querystring';
 import { Logger } from '@nestjs/common';
 import { JoinPartyCommand } from '../commands/join-party.command';
+import { QueueUpdatedEvent } from '../events/queue-updated.event';
+import { TrackModel } from '../tracks/track.model';
+import { classToPlain } from 'class-transformer';
+import { NowPlayingUpdatedEvent } from '../events/now-playing-updated.event';
 
 @WebSocketGateway()
 export class SocketGateway implements OnGatewayConnection<WebSocket>, OnGatewayDisconnect<WebSocket>, SocketSender {
@@ -39,6 +43,24 @@ export class SocketGateway implements OnGatewayConnection<WebSocket>, OnGatewayD
   @SubscribeMessage('client/command/join')
   async onJoinServer(@ConnectedSocket() socket: WebSocket, @MessageBody() msg: JoinServerMessage) {
     await this.commandBus.execute(new JoinPartyCommand(this.clients.get(socket), msg.code));
+  }
+
+  @SubscribeMessage('server/queue/updated')
+  async onQueueChanged(@ConnectedSocket() socket: WebSocket, @MessageBody() msg: QueueUpdatedMessage) {
+    const serverId = this.servers.get(socket);
+    if (!serverId) {
+      return;
+    }
+    this.eventBus.publish(new QueueUpdatedEvent(serverId, msg.tracks))
+  }
+
+  @SubscribeMessage('server/now-playing/updated')
+  async onNowPlayingChanged(@ConnectedSocket() socket: WebSocket, @MessageBody() msg: NowPlayingUpdatedMessage) {
+    const serverId = this.servers.get(socket);
+    if (!serverId) {
+      return;
+    }
+    this.eventBus.publish(new NowPlayingUpdatedEvent(serverId, msg.track))
   }
 
   handleConnection(socket: WebSocket, msg): any {
@@ -100,7 +122,7 @@ export class SocketGateway implements OnGatewayConnection<WebSocket>, OnGatewayD
   }
 
   private sendToSocket(socket: WebSocket, msg: any) {
-    socket.send(JSON.stringify(msg));
+    socket.send(JSON.stringify(classToPlain(msg)));
   }
 
   private getClientId(params: ParsedUrlQuery): string {
@@ -120,4 +142,14 @@ interface UpvoteCommandMessage {
 interface JoinServerMessage {
   type: 'client/command/join';
   code: string;
+}
+
+interface QueueUpdatedMessage {
+  type: 'server/queue/updated'
+  tracks: TrackModel[]
+}
+
+interface NowPlayingUpdatedMessage {
+  type: 'server/now-playing/updated'
+  track?: TrackModel
 }

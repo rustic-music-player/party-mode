@@ -26,6 +26,6 @@ export class QueueApi {
   }
 
   observeQueue(callback: (queue: TrackModel[]) => void) {
-    this.socket.subscribe('client/event/queue', msg => callback(msg.queue as TrackModel[]));
+    this.socket.subscribe('client/event/queue', msg => callback(msg.tracks as TrackModel[]));
   }
 }

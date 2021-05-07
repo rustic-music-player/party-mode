@@ -2,12 +2,11 @@ use std::collections::HashMap;
 
 use async_trait::async_trait;
 
-use rustic_core::Track;
 use rustic_extension_api::*;
 
 use tokio::sync::Mutex;
 use tokio::task::JoinHandle;
-use crate::background_task::{PartyModeBackgroundRunner, PlayerEvent};
+use crate::background_task::PartyModeBackgroundRunner;
 use rustic_core::library::MetaValue;
 use rand::prelude::*;
 use rand::distributions::Alphanumeric;
@@ -23,7 +22,6 @@ pub struct PartyModeExtension {
     server: String,
     runtime: Option<ExtensionRuntime>,
     background_task: Mutex<Option<JoinHandle<Result<(), failure::Error>>>>,
-    background_bus: Mutex<Option<tokio::sync::mpsc::Sender<PlayerEvent>>>,
     tokio_runtime: tokio::runtime::Runtime,
 }
 
@@ -35,7 +33,6 @@ impl ExtensionLibrary for PartyModeExtension {
         PartyModeExtension {
             server: config.get("server").and_then(|value| value.string()).unwrap_or_else(|| "https://party.rustic.cloud".to_string()),
             runtime: Default::default(),
-            background_bus: Default::default(),
             background_task: Default::default(),
             tokio_runtime,
         }
@@ -65,15 +62,13 @@ impl ExtensionApi for PartyModeExtension {
         // We know this is set because of the lifecycle guarantees of the host
         let runtime = self.runtime.clone().unwrap();
         let server_code = Self::get_server_code(&runtime).await?;
-        let (tx, rx) = tokio::sync::mpsc::channel(10);
         let handle = self.tokio_runtime.spawn(async move {
-            let runner = PartyModeBackgroundRunner::new(runtime, rx, server_url, server_code).await?;
+            let runner = PartyModeBackgroundRunner::new(runtime, server_url, server_code).await?;
 
             runner.run().await?;
 
             Ok(())
         });
-        self.background_bus.lock().await.replace(tx);
 
         let mut task = self.background_task.lock().await;
         *task = Some(handle);
@@ -83,7 +78,9 @@ impl ExtensionApi for PartyModeExtension {
 
     async fn on_disable(&self) -> Result<(), failure::Error> {
         let mut task = self.background_task.lock().await;
-        task.take();
+        if let Some(task) = task.take() {
+            task.abort();
+        }
 
         Ok(())
     }
@@ -97,16 +94,6 @@ impl ExtensionApi for PartyModeExtension {
             actions: vec![(REFRESH_SERVER_CODE, "Refresh Server Code").into()],
             infos: join_url.into_iter().map(ExtensionInfo::Link).collect(),
         })
-    }
-
-
-    async fn on_add_to_queue(&self, tracks: Vec<Track>) -> Result<Vec<Track>, failure::Error> {
-        let mut bus = self.background_bus.lock().await;
-        if let Some(bus) = bus.as_mut() {
-            bus.send(PlayerEvent::QueueUpdated).await?;
-        }
-
-        Ok(tracks)
     }
 }
 

@@ -10,6 +10,7 @@ $light: (
   search-active-color: rgba(black, 0.5),
   votes-background: rgba(black, 0.1),
   qr-code-disabled-background: rgba(black, 0.2),
+  join-btn-background: rgba(black, 0.1),
 );
 
 $dark: (
@@ -24,6 +25,7 @@ $dark: (
   search-active-color: rgba(white, 0.8),
   votes-background: rgba(white, 0.3),
   qr-code-disabled-background: rgba(white, 0.3),
+  join-btn-background: rgba(white, 0.1),
 );
 
 @mixin theme($palette) {
